@@ -5,7 +5,7 @@ application = Flask(__name__)
 
 @application.route('/', methods=['GET'])
 def index():
-    return 'Hello world!'
+    return 'Hello form iocontext!'
 
 def test():
     application.run(debug=True)
