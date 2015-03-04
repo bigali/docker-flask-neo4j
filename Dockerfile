@@ -1,14 +1,16 @@
-from ubuntu:14.04
+from ubuntu
 
 maintainer Sidali HALLAK, sidali@iogrow.com
 
-#run echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
-run perl -p -i.orig -e 's/archive.ubuntu.com/mirrors.aliyun.com\/ubuntu/' /etc/apt/sources.list
+#ENV http_proxy http://10.0.0.1:80
+#ENV https_proxy http://10.0.0.1:80
+
+
 run apt-get update
 run apt-get install -y build-essential git
-run apt-get install -y python python-dev python-setuptools
+run apt-get install -y python python-dev python-setuptools python-pip
 run apt-get install -y nginx supervisor
-run easy_install pip
+
 
 # install uwsgi now because it takes a little while
 run pip install uwsgi
@@ -16,9 +18,8 @@ run pip install uwsgi
 # install nginx
 run apt-get install -y software-properties-common python-software-properties
 run apt-get update
-run add-apt-repository -y ppa:nginx/stable
 run apt-get install -y sqlite3
-
+run apt-get install -y wget
 ## install neo4j according to http://www.neo4j.org/download/linux
 # Import neo4j signing key
 # Create an apt sources.list file
@@ -53,16 +54,13 @@ run chmod +x /launch.sh && \
 
 # run pip install
 run pip install -r /home/docker/code/app/requirements.txt
-run pip install https://github.com/espeed/bulbs/tarball/master
+
 
 expose 80
 expose 7474
 expose 1337
 
-cmd ["supervisord", "-n"]
 
-
-workdir /
 
 ## entrypoint
-cmd ["/bin/bash", "-c", "/launch.sh"]
+cmd ["supervisord", "-n"]

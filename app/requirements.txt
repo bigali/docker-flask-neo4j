@@ -10,5 +10,8 @@ itsdangerous==0.24
 python-dateutil==2.2
 requests==2.3.0
 six==1.7.3
-networkx==1.9.1
-twitter==1.15.0
+networkx
+tweepy
+py2neo
+PyJWT==0.2.1
+requests-oauthlib==0.4.1
